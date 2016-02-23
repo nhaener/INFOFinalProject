@@ -1,7 +1,0 @@
----
-title: "index"
-author: "Christopher"
-date: "February 22, 2016"
-output: html_document
----
-
