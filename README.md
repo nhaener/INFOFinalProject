@@ -45,7 +45,7 @@ We'll likely be needing to use `select()`, `filter()`, and various join function
 We will mainly be using `Shiny` and `plotly`. We may experiment with the use of other data visualization packages such as `googleVis` and `choroplethr`.
 
 ### Questions answered with statistical analysis/machine learning?
-
+- Majority of our questions will require statistical analysis to answer. 
 ### What major challenges do you anticipate?
 - One major challenge will be figuring out what visualization will provide the clearest picture of the problem with obesity. This will still need to provide enough detail to allow the client to see possible solutions/or areas to look into in more detail. 
 - The other major challenge will be figuring out what other data should be included with obesity statistics to give a better picture of the impact of obesity in other areas.
