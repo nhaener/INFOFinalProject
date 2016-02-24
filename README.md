@@ -36,13 +36,13 @@ The audience may want to compare obesity prevalence between sexes within a state
 Shiny app, allowing client to filter obesity data based on different factors such as seeing overall data for state, county level data, data for specific year, etc. 
 
 ### Reading in data?
-
+These datasets will be read in as static .csv files, likely with the `read.csv()` function and set to variable(s) to be manipulated and used to visualize.
 
 ### Types of data-wrangling
-
+We'll likely be needing to use `select()`, `filter()`, and various join functions to view/alter data from multiple datasets for given years. We may need to compile all the datasets we're using into a single data frame.
 
 ### What (new) libraries will be used?
-
+We will mainly be using `Shiny` and `plotly`. We may experiment with the use of other data visualization packages such as `googleVis` and `choroplethr`.
 
 ### Questions answered with statistical analysis/machine learning?
 
