@@ -68,3 +68,4 @@ AC_S <- format_data(AC_S, 2009:2012, 4, 18)
 #############################################################
 
 OB_StCo <- OB[, c("State", "County")]
+LL_StCo <- LL[, c("State", "County")]
