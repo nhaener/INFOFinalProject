@@ -54,12 +54,9 @@ LL <- FindReplace(LL, "USPS", AB, from = "Abbreviation", to ="US.State",
 
 # Formats column names for each file
 OB <- format_data(OB, 2004:2012, 4, 10)
-OB_S <- format_data(OB_S, 2009:2012, 4, 17)
+OB_S <- format_data(OB_S, 2009:2012, 4, 18)
 AC <- format_data(AC, 2004:2012, 4, 10)
-AC_S <- format_data(AC_S, 2009:2012, 4, 17)
-
-# Changes column names in each file
-OB <- fix_df(OB, OB_col_names)
+AC_S <- format_data(AC_S, 2009:2012, 4, 18)
 
 
 # Format data function
