@@ -17,7 +17,7 @@
 
 #############################################################
 ## Set working directory
-setwd("/Users/Nick/info498f/INFOFinalProject")
+# setwd("")
 
 #############################################################
 ## Library
@@ -26,7 +26,7 @@ library(dplyr)
 
 #############################################################
 #Source data formatting functions
-source
+source("format_functions.R")
 
 #############################################################
 ## Reads in files to be worked on
@@ -55,8 +55,16 @@ LL <- FindReplace(LL, "USPS", AB, from = "Abbreviation", to ="US.State",
 #############################################################
 
 # Formats column names for each file
-OB <- format_data(OB, 2004:2012, 4, 10)
+OB <- format_data(OB, 2004:2012, 4, 11)
 OB_S <- format_data(OB_S, 2009:2012, 4, 18)
-AC <- format_data(AC, 2004:2012, 4, 10)
+AC <- format_data(AC, 2004:2012, 4, 11)
 AC_S <- format_data(AC_S, 2009:2012, 4, 18)
 
+
+#############################################################
+#############################################################
+## Section to: add LL data to all files
+#############################################################
+#############################################################
+
+OB_StCo <- OB[, c("State", "County")]
