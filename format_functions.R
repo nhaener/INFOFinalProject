@@ -78,3 +78,19 @@ make_numeric <- function(df) {
   }
   return(df)
 }
+
+#############################################################
+#############################################################
+## Functions for: Adding Lat and Long data
+#############################################################
+#############################################################
+
+
+add_location <- function(df, LL_df) {
+  LL_StCo <- LL_df[, c("State", "County", "Lat", "Long")]
+  joined <- left_join(df, LL_StCo, by = c('State', 'County'))
+  return(joined)
+}
+
+
+

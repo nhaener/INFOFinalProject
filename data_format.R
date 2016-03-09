@@ -91,5 +91,7 @@ AC_S <- make_numeric(AC_S)
 #############################################################
 #############################################################
 
-OB_StCo <- OB[, c("State", "County")]
-LL_StCo <- LL[, c("State", "County", "Lat", "Long")]
+OB <- add_location(OB, LL)
+OB_S <- add_location(OB_S, LL)
+AC <- add_location(AC, LL)
+AC_S <- add_location(AC_S, LL)
