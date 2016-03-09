@@ -26,7 +26,7 @@ source("data_format.R")
 library(dplyr)
 
 #DYPLR functions
-avg_OB_yr_state <- function(df, year, my_state){
+avg_yr_state <- function(df, year, my_state){
   #Filter data frame by state and select year
   my_df <- df %>% select(1:3, contains(year)) %>% 
     filter(df$State == my_state)
@@ -36,7 +36,7 @@ avg_OB_yr_state <- function(df, year, my_state){
   perCol <- paste0("percent_", year)
   
   #make numeric
-  #my_df[,perCol] <- as.numeric(levels(my_df[,perCol])[my_df[,perCol]])
+  my_df[,perCol] <- as.numeric(levels(my_df[,perCol])[my_df[,perCol]])
   
   #get rounded average for obesity
   avg <- my_df %>% summarise(mean(my_df[,perCol]))
@@ -50,6 +50,8 @@ avg_OB_yr_state <- function(df, year, my_state){
 }
 
 #function test
-df <- avg_OB_yr_state(OB,'2004', "Washington")
+df <- avg_yr_state(OB,'2004', "Washington")
+df2 <- avg_yr_state(AC, '2004', "Washington")
 
+df3 <- df %>% mutate("Avg Active People" = df2$'Average Percentage Obese')
 
