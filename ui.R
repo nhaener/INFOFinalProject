@@ -13,18 +13,17 @@ library(shiny)
 # Define UI
 shinyUI(fluidPage(
   
-  # Application title
-  titlePanel(),
-  
-  # Sidebar 
-  sidebarLayout(
-    sidebarPanel(
-      
-    ),
-    
-    # MainPanel
-    mainPanel(
-
-    )
+  navbarPage("US Obesity",
+             tabPanel("Overview"
+                      
+                      
+                      
+              ),
+             tabPanel("Obesity & Activity"),
+             tabPanel("Trends"),
+             tabPanel("Resources"),
+              
+             navbarMenu("More", 
+                        tabPanel("Other"))
   )
 ))
