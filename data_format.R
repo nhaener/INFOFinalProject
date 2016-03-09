@@ -20,6 +20,10 @@
 # setwd("")
 
 #############################################################
+## Install any packages
+# install.packages("DataCombine")
+
+#############################################################
 ## Library
 library(DataCombine)
 library(dplyr)
@@ -70,8 +74,8 @@ AC_S <- format_data(AC_S, 2009:2012, 4, 18)
 #############################################################
 OB <- remove_cols(OB)
 OB_S <- remove_cols(OB_S)
-AC <- remove_cols(OB_S)
-AC_S <- remove_cols(OB_S)
+AC <- remove_cols(AC)
+AC_S <- remove_cols(AC_S)
 
 
 #############################################################

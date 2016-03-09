@@ -17,7 +17,7 @@
 ########################## DATA Manipulation ######################################
 ###################################################################################
 ## Set working directory
-setwd("/Users/Nick/info498f/INFOFinalProject")
+# setwd("/Users/Nick/info498f/INFOFinalProject")
 
 ## Source formatted data
 source("data_format.R")
@@ -49,9 +49,9 @@ avg_yr_state <- function(df, year, my_state){
   return(avg_df)
 }
 
-#function test
-df <- avg_yr_state(OB,'2004', "Washington")
-df2 <- avg_yr_state(AC, '2004', "Washington")
-
-df3 <- df %>% mutate("Avg Active People" = df2$'Average Percentage Obese')
+# #function test
+#df <- avg_yr_state(OB,'2004', "Washington")
+#df2 <- avg_yr_state(AC, '2004', "Washington")
+# 
+# df3 <- df %>% mutate("Avg Active People" = df2$'Average Percentage Obese')
 
