@@ -1,4 +1,10 @@
 ###################################### Data Format Functions ###################################
+
+#############################################################
+#############################################################
+## Functions for: correct column names of all files
+#############################################################
+#############################################################
 # Format data function
 
 format_data <- function(df, years, start, end) {
@@ -45,3 +51,30 @@ fix_df <- function(df, new_colnames) {
   return(df[-1,])
 }
 
+
+#############################################################
+#############################################################
+## Functions for: correct column names of all files
+#############################################################
+#############################################################
+
+remove_cols <- function(df) {
+  df <- df %>% select(1:3, contains("number"), starts_with("percent"))
+  return(df)
+}
+
+#############################################################
+#############################################################
+## Functions for: correct column names of all files
+#############################################################
+#############################################################
+
+make_numeric <- function(df) {
+  df_length <- ncol(df)
+  col_names <- c(df %>% select(4:df_length) %>% colnames())
+  values <- c()
+  for (string in col_names) {
+    df[,string] <- as.numeric(levels(df[, string]))[df[,string]]
+  }
+  return(df)
+}

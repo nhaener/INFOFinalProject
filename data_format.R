@@ -47,6 +47,8 @@ AC_S <- read.csv("data/LTPIA_PREV_by_sex_ALL_STATES.csv")
 # to be loaded. 
 LL <- FindReplace(LL, "USPS", AB, from = "Abbreviation", to ="US.State",
             exact = TRUE)
+# Sets LL Column names 
+colnames(LL) <- c("State", "GEOID", "ANSICODE", "County", "Lat", "Long")
 
 #############################################################
 #############################################################
@@ -63,8 +65,31 @@ AC_S <- format_data(AC_S, 2009:2012, 4, 18)
 
 #############################################################
 #############################################################
+## Section to: remove unnecessary information
+#############################################################
+#############################################################
+OB <- remove_cols(OB)
+OB_S <- remove_cols(OB_S)
+AC <- remove_cols(OB_S)
+AC_S <- remove_cols(OB_S)
+
+
+#############################################################
+#############################################################
+## Section to: change percents and numbers to integer values
+#############################################################
+#############################################################
+
+OB <- make_numeric(OB)
+OB_S <- make_numeric(OB_S)
+AC <- make_numeric(AC)
+AC_S <- make_numeric(AC_S)
+
+#############################################################
+#############################################################
 ## Section to: add LL data to all files
 #############################################################
 #############################################################
 
 OB_StCo <- OB[, c("State", "County")]
+LL_StCo <- LL[, c("State", "County", "Lat", "Long")]
