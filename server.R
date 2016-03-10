@@ -10,10 +10,17 @@
 #############################################################
 
 #############################################################
+# Install Packages
+# install.packages("choroplethrMaps")
+# install.packages("choroplethr")
+# install.packages("shinyjs")
+
+#############################################################
 # Load Library
 library(shiny)
 library(plotly)
 library(dplyr)
+library(choroplethr)
 library(choroplethrMaps)
 library(shinyjs)
 
