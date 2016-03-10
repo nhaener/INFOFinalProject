@@ -106,8 +106,8 @@ AC_S <- add_location(AC_S, LL)
 #############################################################
 #############################################################
 
-write.csv(OB, file = "data/OB.csv")
-write.csv(OB_S, file = "data/OB_S.csv")
-write.csv(AC, file = "data/AC.csv")
-write.csv(AC_S, file = "data/AC_S.csv")
+write.csv(OB, file = "data/OB.csv", row.names = FALSE)
+write.csv(OB_S, file = "data/OB_S.csv", row.names = FALSE)
+write.csv(AC, file = "data/AC.csv", row.names = FALSE)
+write.csv(AC_S, file = "data/AC_S.csv", row.names = FALSE)
 

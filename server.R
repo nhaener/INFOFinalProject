@@ -49,7 +49,3 @@ shinyServer(function(input, output) {
   
   
 })
-
-
-
-df <- OB
