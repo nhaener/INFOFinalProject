@@ -25,19 +25,41 @@ source("data_format.R")
 ## Library 
 library(dplyr)
 
-#DYPLR functions
+#Final data frames
+finished_df <- create_final_df(OB, AC)
+finished_df_S <- create_final_df_S(OB_S, AC_S)
 
-#This function takes in a state, data frame, and a year and returns a 
-#data frame containing averaged information regarding that state for that given year
+#Write final data frames to CSV
+write.csv("data/OBandAC_DF.csv")
+write.csv("data/OB_SandAC_S_DF.csv")
 
 
-#this function createS A LARGE DATA FRAME CONTAINING SUMMARISED INFORMATION ABOUT EACH STATE
+
+############################################ DYPLR functions #########################################################
+#this function creates a data frame for obesity rates vs activity level with gender neutral
 create_summarised_df <- function(df){
   col <- "percent_"
   summarised_df <- df %>% group_by(State) %>% select(contains(col)) %>% summarise_each(funs(mean))
   return(summarised_df)
 }
 
+#Creates a data frame for obesity rates vs activity level with gender specific
+sum_df_gender <- function(df){
+  #Men
+  summarised_df_M <- AC_S %>% group_by(State) %>% select(contains("percent (men)_")) %>% summarise_each(funs(mean))
+  
+  #Women
+  colFem <- "percent (women)_"
+  summarised_df_F <- df %>% group_by(State) %>% select(contains(colFem)) %>% summarise_each(funs(mean))
+  
+  #Join Data Frames
+  summarised_df_MF <- left_join(summarised_df_M, summarised_df_F, by = "State")
+  
+  return(summarised_df_MF)
+}
+
+
+#Creates the merged data frame for obesity rates vs activity level with gender neutral
 create_final_df <- function(df1, df2){
   #Obesity
   OB_df <- create_summarised_df(df1)
@@ -55,9 +77,21 @@ create_final_df <- function(df1, df2){
   return(final_df)
 }
 
-finished_df <- create_final_df(OB, AC)
+#Creates the merged data frame for obesity rates vs activity level with gender specific
+create_final_df_S <- function(df1, df2){
+  #Obesity
+  OB_df_S <- sum_df_gender(df1)
+  names(OB_df_S) <- c("State", "OB_S_percent(M)_2009", "OB_S_percent(M)_2010", "OB_S_percent(M)_2011", "OB_S_percent(M)_2012",
+                            "OB_S_percent(F)_2009", "OB_S_percent(F)_2010", "OB_S_percent(F)_2011", "OB_S_percent(F)_2012")
+  
+  #Activity level
+  AC_df_S <- sum_df_gender(df2)
+  names(AC_df_S) <- c("State", "AC_S_percent(M)_2009", "AC_S_percent(M)_2010", "AC_S_percent(M)_2011", "AC_S_percent(M)_2012",
+                      "AC_S_percent(F)_2009", "AC_S_percent(F)_2010", "AC_S_percent(F)_2011", "AC_S_percent(F)_2012")
+  
+  final_df <- left_join(OB_df_S, AC_df_S, by = "State")
+  
+  return(final_df)
+}
 
-write.csv("data/OBandAC_DF.csv")
-
-#finished_df_Sex <- create_final_df(OB_S, AC_S)
 
