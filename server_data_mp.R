@@ -30,10 +30,35 @@ finished_df <- create_final_df(OB, AC)
 finished_df_S <- create_final_df_S(OB_S, AC_S)
 
 #Write final data frames to CSV
-write.csv("data/OBandAC_DF.csv")
-write.csv("data/OB_SandAC_S_DF.csv")
+write.csv(finished_df, file = "data/OBandAC_DF.csv")
+write.csv(finished_df_S, file = "data/OB_SandAC_S_DF.csv")
 
 
+#Create Summary Table OB
+nums <- finished_df %>% select(1:9) %>% mutate("OBchange'04" = 0)
+nums <- nums %>% mutate("OBchange'05" = round(finished_df$OB_percent_2005 - finished_df$OB_percent_2004, 3))
+nums <- nums %>% mutate("OBchange'06" = round(finished_df$OB_percent_2006 - finished_df$OB_percent_2005, 3))
+nums <- nums %>% mutate("OBchange'07" = round(finished_df$OB_percent_2007 - finished_df$OB_percent_2006, 3))
+nums <- nums %>% mutate("OBchange'08" = round(finished_df$OB_percent_2008 - finished_df$OB_percent_2007, 3))
+nums <- nums %>% mutate("OBchange'09" = round(finished_df$OB_percent_2009 - finished_df$OB_percent_2008, 3))
+nums <- nums %>% mutate("OBchange'10" = round(finished_df$OB_percent_2010 - finished_df$OB_percent_2009, 3))
+nums <- nums %>% mutate("OBchange'11" = round(finished_df$OB_percent_2011 - finished_df$OB_percent_2010, 3))
+nums <- nums %>% mutate("OBchange'12" = round(finished_df$OB_percent_2012 - finished_df$OB_percent_2011, 3))
+nums <- nums %>% select(-2:-9)
+
+#Create Summary Table AC
+nums2 <- finished_df %>% select(1, 11:19) %>% mutate("ACchange'04" = 0)
+nums2 <- nums2 %>% mutate("ACchange'05" = round(finished_df$AC_percent_2005 - finished_df$AC_percent_2004, 3))
+nums2 <- nums2 %>% mutate("ACchange'06" = round(finished_df$AC_percent_2006 - finished_df$AC_percent_2005, 3))
+nums2 <- nums2 %>% mutate("ACchange'07" = round(finished_df$AC_percent_2007 - finished_df$AC_percent_2006, 3))
+nums2 <- nums2 %>% mutate("ACchange'08" = round(finished_df$AC_percent_2008 - finished_df$AC_percent_2007, 3))
+nums2 <- nums2 %>% mutate("ACchange'09" = round(finished_df$AC_percent_2009 - finished_df$AC_percent_2008, 3))
+nums2 <- nums2 %>% mutate("ACchange'10" = round(finished_df$AC_percent_2010 - finished_df$AC_percent_2009, 3))
+nums2 <- nums2 %>% mutate("ACchange'11" = round(finished_df$AC_percent_2011 - finished_df$AC_percent_2010, 3))
+nums2 <- nums2 %>% mutate("ACchange'12" = round(finished_df$AC_percent_2012 - finished_df$AC_percent_2011, 3))
+nums2 <- nums2 %>% select(-2:-10)
+
+summaryTable <- left_join(nums, nums2, by = "State")
 
 ############################################ DYPLR functions #########################################################
 #this function creates a data frame for obesity rates vs activity level with gender neutral
