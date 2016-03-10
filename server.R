@@ -9,10 +9,33 @@
 #############################################################
 #############################################################
 
+#############################################################
+# Load Library
 library(shiny)
+library(plotly)
+library(dplyr)
+library(choroplethr)
+
+
+
+#############################################################
+# Read in data
+OB <- read.csv("data/OB.csv")
+OB_S <- read.csv("data/OB_S.csv")
+AC <- read.csv("data/AC.csv")
+AC_S <- read.csv("data/AC_S.csv")
+  
 
 # Server
 shinyServer(function(input, output) {
-   
+  
+  # Ouput for Overview page 
+  output$OB_St_level <- renderPlotly({
+    
+   })
   
 })
+
+
+
+df <- OB
