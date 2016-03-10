@@ -38,8 +38,17 @@ write.csv(sumTbl, file = "data/OBvsAC_sumTbl.csv", row.names = FALSE)
 sumTbl <- write_sum_tbl()
 
 
+#Summary Information
+##highest obesity states by year
+high_OB <- finished_df %>% arrange(1:19)
 
 ############################################ DYPLR functions #########################################################
+find_max_min_yr <- function(df, year){
+  max <- df %>% select(contains("percent"), year) %>% summarise_each(funs(max))
+}
+
+
+
 #this function creates a data frame for obesity rates vs activity level with gender neutral
 create_summarised_df <- function(df){
   col <- "percent_"
