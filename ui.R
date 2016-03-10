@@ -14,10 +14,10 @@ library(shiny)
 shinyUI(fluidPage(
   
   navbarPage("US Obesity",
-             tabPanel("Overview",
+             tabPanel("Overview"#,
                     
-                      plotlyOutput("OB_St_level"),
-                      sliderInput("OB_st_level_year")
+                      #plotlyOutput("OB_St_level"),
+                      #sliderInput("OB_st_level_year")
                       
               ),
              tabPanel("Obesity & Activity",

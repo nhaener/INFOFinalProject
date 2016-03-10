@@ -29,10 +29,24 @@ AC_S <- read.csv("data/AC_S.csv")
 # Server
 shinyServer(function(input, output) {
   
-  # Ouput for Overview page 
-  output$OB_St_level <- renderPlotly({
+  #############################################################
+  # Output for Overview Page 
+  #output$OB_St_level <- renderPlotly({
     
-   })
+   #})
+  
+  #############################################################
+  # Output for Obesity & Activity
+  
+  #############################################################
+  # Output for Trends
+  
+  #############################################################
+  # Output for Resources
+  
+  #############################################################
+  # Output for Other
+  
   
 })
 
