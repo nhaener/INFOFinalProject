@@ -135,7 +135,7 @@ shinyServer(function(input, output) {
     to_acmap <- left_join(to_acmap, state_codes, by="State")
   })
   
-  # outputs the plotly object of activity level choropleth map to UI 
+  # outputs the plotly object of inactivity level choropleth map to UI 
   output$acmap <- renderPlotly({
     
     l <- list(color = toRGB("gray"), width = 1)
@@ -151,12 +151,12 @@ shinyServer(function(input, output) {
       countrycolor = toRGB("white")
     )
     
-    # constructs plotly object to display activity levels of states as a choropleth map
+    # constructs plotly object to display inactivity levels of states as a choropleth map
     plot_ly(acmap_data(), type='choropleth', z = percent, locations = code,
             locationmode = 'USA-states', color = percent, colors = 'PuBuGn',
-            marker = list(line = l), colorbar = list(title = 'Leisure Time Activity Percentage',
+            marker = list(line = l), colorbar = list(title = 'Leisure Time Inactivity Percentage',
                                                      ticksuffix = "%")) %>% 
-      layout(title = 'Leisure Time Dedicated to Physical Activity by State', geo = g)
+      layout(title = 'Leisure Time Not Spent Performing Physical Activity by State', geo = g)
   })
   
   #############################################################

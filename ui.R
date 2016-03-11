@@ -63,18 +63,16 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                         
                         mainPanel(
                           h4("The two maps below display the prevalence of obesity across American states for a given year
-                             (upper map) and the percentage of leisure time that people of a state spend performing physical
-                             activity for the same year (lower map). The intensity of the colors of the maps are directly
-                             related to the percentage of that state's population that is considered obese or the average
-                             percentage of leisure time people of a state are active."),
+                             (upper map) and the percentage of leisure time that people of a state do not spend performing 
+                             physical activity for the same year (lower map). The intensity of the colors of the maps are 
+                             directly related to the percentage of that state's population that is considered obese or the 
+                             average percentage of leisure time people of a state are spending inactive."),
                           br(),
                           br(),
                           plotlyOutput('obmap'),
                           plotlyOutput('acmap')
                           )
                       )  
-                      
-                      
                       
              ),
              tabPanel("Trends",
