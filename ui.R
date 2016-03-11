@@ -25,15 +25,18 @@ source("PAGE_Overview_data_mp.R")
 
 # Define UI
 shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
-  useShinyjs(), # Set up toggle ability 
-  navbarPage("US Obesity",
+  useShinyjs(), # Set up toggle ability
+  navbarPage("USA Obesity",
+             #############################################################
+             ## UI for Overview page
              tabPanel("Overview",
                       
                       sidebarLayout(
-                        sidebarPanel( "View Settings:",
-                            selectInput("Overview_OB_map_select_year",
-                                        choices = c(2004:2012),
-                                        label = "Select year"),
+                        sidebarPanel( "View Settings:", width = 3,
+                            sliderInput("Overview_OB_map_slider_year",
+                                        2004, 2012, 1, sep = "",
+                                        label = "Select year", 
+                                        animate = animationOptions(interval = 5000)),
                           selectInput("Overview_OB_map_select_state",
                                       choices = c("National", choices_state()),
                                       label = "Select focus (National or State)"),
@@ -44,10 +47,24 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                         mainPanel(
                           plotOutput("Overview_OB_map"),
                           dataTableOutput("Overview_OB_map_data"),
-                          p("Introduction to this project will go here
-                            along with a description of the information
-                            presented on this page, and a breif overview
-                            of the information avaiable on the other pages")
+                          p("The American waistline has been steadily rising over the past several decades.  
+                            Just how much however depends on many factors, such as location, age, sex, 
+                            genetics, etc. This resource focuses on how location plays a role in rates of 
+                            obesity. Obesity is defined as someone with a Body Mass Index greater than 30. 
+                            (For example, someone with a height of 5\' 8\" would be considered obese if 
+                            they weigh 200 pounds or more). This resource provides information about obesity 
+                            rates in the United States, including information on rates by county. The graphic 
+                            above can be used to see obesity rates for the entire country, or for a selected 
+                            state using the \"Select focus\" dropdown on the right.  To select the year to 
+                            display data for use the \"Select year\" dropdown.  To see the specific obesity 
+                            rates for a given view, select the \"Display data\" option."),
+                          br(),
+                          p("In addition to data on obesity, the Obesity & Activity page allows for the 
+                            comparison between obesity rates by state and the percentage of leisure 
+                            time spent being inactive.  On the Trends page, obesity rates are projected 
+                            through 2025. The Documentation page provides information on where the obesity 
+                            and activity data is from and describes what the values actually mean. ")
+
                         ))
                       
               ),
