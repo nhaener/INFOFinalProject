@@ -66,9 +66,11 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
              tabPanel("Obesity & Activity",
                       sidebarLayout(
                         sidebarPanel("Use the slider below to select which year to visualize data for",
+                                     # Slider communicates with Server.R to wrangle data for the desired year
                                      sliderInput("year", label = h3("View data for the year:"), min = 2004, max = 2012, value = 2012,
                                                  sep = "")
                         ),
+                        # contains the information paragraph and the two reactive choropleth maps of obesity and inactivity
                         mainPanel(
                           h4("The two maps below display the prevalence of obesity across American states for a given year
                              (upper map) and the percentage of leisure time that people of a state do not spend performing 

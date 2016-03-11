@@ -90,10 +90,12 @@ shinyServer(function(input, output) {
   
   # read in .csv files to be visualized
   OBandAC_data <- read.csv("data/OBandAC_DF.csv")
+  # read in state name abbrevations/codes to be accepted into 'location' argument of the plotly choropleth maps
   state_codes <- read.csv("data/original/StateName_abvr.csv")
   colnames(state_codes) <- c('State', 'code')
   
-  # create reactive dataframe for obesity prevalence of states for the year input by user
+  # create reactive dataframe for obesity prevalence of states for the year input by user, leaving out
+  # states with NULL values
   obmap_data <- reactive({
     to_obmap <- select(OBandAC_data, State, contains(paste0('OB_percent_', as.character(input$year)))) %>% 
       filter(State!="Alaska", State!="Puerto Rico")
@@ -126,7 +128,8 @@ shinyServer(function(input, output) {
       layout(title = 'Obesity Prevalence in America by State', geo = g)
   })
   
-  # create reactive dataframe for activity levels of states for the year input by user
+  # create reactive dataframe for activity levels of states for the year input by user, leaving out
+  # states with NULL values
   acmap_data <- reactive({
     to_acmap <- select(OBandAC_data, State, contains(paste0('AC_percent_', as.character(input$year)))) %>% 
       filter(State!="Alaska", State!="Puerto Rico")
@@ -135,7 +138,7 @@ shinyServer(function(input, output) {
     to_acmap <- left_join(to_acmap, state_codes, by="State")
   })
   
-  # outputs the plotly object of inactivity level choropleth map to UI 
+  # outputs the plotly object of inactivity level choropleth map to UI
   output$acmap <- renderPlotly({
     
     l <- list(color = toRGB("gray"), width = 1)
@@ -160,7 +163,7 @@ shinyServer(function(input, output) {
   })
   
   #############################################################
-  # Output fot Trends
+  # Output for Trends
   
     #rendering obesity graph
     output$obesity_plot <- renderPlotly(
