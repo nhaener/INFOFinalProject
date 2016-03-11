@@ -30,18 +30,24 @@ library(shinyjs)
 
 #############################################################
 # Read in data
+# Base formatted data sets
 OB <- read.csv("output/OB.csv")
 OB_S <- read.csv("output/OB_S.csv")
 AC <- read.csv("output/AC.csv")
 AC_S <- read.csv("output/AC_S.csv")
+AB <- read.csv("data/StateName_abvr.csv")
+
+# Summary data
 OB_AC_AVG <- read.csv("output/OBandAC_DF.csv")
 
+# Trends data
 projected_obesity <- read.csv("output/projected_obesity.csv")
 projected_inactivity <- read.csv("output/projected_inactivity.csv")
 obesity_2025 <- read.csv("output/obesity_2025.csv")
 inactivity_2025 <- read.csv("output/inactivity_2025.csv")
 
 
+#############################################################
 # Server
 shinyServer(function(input, output) {
   
@@ -92,10 +98,10 @@ shinyServer(function(input, output) {
   #############################################################
   # Output for Obesity & Activity
   
-  # read in .csv files to be visualized
-  OBandAC_data <- read.csv("output/OBandAC_DF.csv")
-  # read in state name abbrevations/codes to be accepted into 'location' argument of the plotly choropleth maps
-  state_codes <- read.csv("data/StateName_abvr.csv")
+  # files to be visualized
+  OBandAC_data <- OB_AC_AVG
+  # use state name abbrevations/codes to be accepted into 'location' argument of the plotly choropleth maps
+  state_codes <- AB
   colnames(state_codes) <- c('State', 'code')
   
   # create reactive dataframe for obesity prevalence of states for the year input by user, leaving out

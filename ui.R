@@ -26,8 +26,8 @@ source("scripts/server_and_ui_functions.R")
 shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
   useShinyjs(), # Set up toggle ability
   navbarPage(strong("USA Obesity"),
-             #############################################################
-             ## UI for Overview page
+#############################################################
+## UI for Overview page
              tabPanel("Overview",
                       sidebarLayout(
                         sidebarPanel( "View Settings:", width = 3,
@@ -64,6 +64,8 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
 
                         ))
               ),
+#############################################################
+## UI Obesity & Activity
              tabPanel("Obesity & Activity",
                       sidebarLayout(
                         sidebarPanel("Use the slider below to select which year to visualize data for",
@@ -84,6 +86,8 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                         )
                       )  
              ),
+#############################################################
+## UI for Trends
              tabPanel("Trends",
                       titlePanel("Trends Projected into 2025"),
                       sidebarLayout(
@@ -112,6 +116,8 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                         )
                       )
              ),
+#############################################################
+## UI for Documentation
              tabPanel("Documentation",
                         mainPanel( 
                           #HTML Formatted Text
