@@ -24,7 +24,7 @@ source("trendline.R")
 # Define UI
 shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
   useShinyjs(), # Set up toggle ability
-  navbarPage("USA Obesity",
+  navbarPage(strong("USA Obesity"),
              #############################################################
              ## UI for Overview page
              tabPanel("Overview",
