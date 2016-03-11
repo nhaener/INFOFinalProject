@@ -88,6 +88,77 @@ shinyServer(function(input, output) {
   #############################################################
   # Output for Obesity & Activity
   
+  # read in .csv files to be visualized
+  OBandAC_data <- read.csv("data/OBandAC_DF.csv")
+  state_codes <- read.csv("data/original/StateName_abvr.csv")
+  colnames(state_codes) <- c('State', 'code')
+  
+  # create reactive dataframe for obesity prevalence of states for the year input by user
+  obmap_data <- reactive({
+    to_obmap <- select(OBandAC_data, State, contains(paste0('OB_percent_', as.character(input$year)))) %>% 
+      filter(State!="Alaska", State!="Puerto Rico")
+    colnames(to_obmap) = c('State', 'percent')
+    to_obmap$hover = with(to_obmap, paste0(to_obmap$State, ": ", to_obmap$percent, "%"))
+    to_obmap <- left_join(to_obmap, state_codes, by="State")
+  })
+  
+  # outputs the plotly object of obesity of prevalence choropleth map to UI
+  output$obmap <- renderPlotly ({
+    
+    l <- list(color = toRGB("gray"), width = 1)
+    
+    g <- list(
+      scope = 'usa',
+      projection = list(type = 'albers usa'),
+      showlakes = TRUE,
+      lakecolor = toRGB('white'),
+      subunitwidth = 1,
+      countrywidth = 2,
+      subunitcolor = toRGB("white"),
+      countrycolor = toRGB("white")
+    )
+    
+    # constructs plotly object to display obesity prevalence of states as a choropleth map
+    plot_ly(obmap_data(), type='choropleth', z = percent, locations = code,
+            locationmode = 'USA-states', color = percent, colors = 'OrRd', text = hover,
+            marker = list(line = l), colorbar = list(title = 'Population Obesity Percentage',
+                                                     ticksuffix = "%")) %>% 
+      layout(title = 'Obesity Prevalence in America by State', geo = g)
+  })
+  
+  # create reactive dataframe for activity levels of states for the year input by user
+  acmap_data <- reactive({
+    to_acmap <- select(OBandAC_data, State, contains(paste0('AC_percent_', as.character(input$year)))) %>% 
+      filter(State!="Alaska", State!="Puerto Rico")
+    colnames(to_acmap) = c('State', 'percent')
+    to_acmap$hover = with(to_acmap, paste0(to_acmap$State, ": ", to_acmap$percent, "%"))
+    to_acmap <- left_join(to_acmap, state_codes, by="State")
+  })
+  
+  # outputs the plotly object of activity level choropleth map to UI 
+  output$acmap <- renderPlotly({
+    
+    l <- list(color = toRGB("gray"), width = 1)
+    
+    g <- list(
+      scope = 'usa',
+      projection = list(type = 'albers usa'),
+      showlakes = TRUE,
+      lakecolor = toRGB('white'),
+      subunitwidth = 1,
+      countrywidth = 1,
+      subunitcolor = toRGB("white"),
+      countrycolor = toRGB("white")
+    )
+    
+    # constructs plotly object to display activity levels of states as a choropleth map
+    plot_ly(acmap_data(), type='choropleth', z = percent, locations = code,
+            locationmode = 'USA-states', color = percent, colors = 'PuBuGn',
+            marker = list(line = l), colorbar = list(title = 'Leisure Time Activity Percentage',
+                                                     ticksuffix = "%")) %>% 
+      layout(title = 'Leisure Time Dedicated to Physical Activity by State', geo = g)
+  })
+  
   #############################################################
   # Output for Trends
   

@@ -52,8 +52,13 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
               ),
              tabPanel("Obesity & Activity",
                       sidebarLayout(
-                        sidebarPanel( "sidebar panel"),
-                        mainPanel("main panel")
+                        sidebarPanel("Obesity Prevalence and Leisure Time Activity in America",
+                                     sliderInput("year", label = h3("Select year to view data for:"), min = 2004, max = 2012, value = 2012,
+                                                 sep = "")),
+                        mainPanel(
+                          plotlyOutput('obmap'),
+                          plotlyOutput('acmap')
+                        )
                       )  
                       
                       
@@ -63,7 +68,7 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                       sidebarLayout(
                         sidebarPanel( "sidebar panel"),
                         mainPanel("main panel")
-                      )  
+                      )   
              
                       
                       
