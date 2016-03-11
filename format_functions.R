@@ -71,7 +71,7 @@ remove_cols <- function(df) {
 
 make_numeric <- function(df) {
   df_length <- ncol(df)
-  col_names <- c(df %>% select(4:df_length) %>% colnames())
+  col_names <- c(df %>% select(2, 4:df_length) %>% colnames())
   values <- c()
   for (string in col_names) {
     df[,string] <- as.numeric(levels(df[, string]))[df[,string]]

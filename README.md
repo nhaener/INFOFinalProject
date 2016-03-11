@@ -1,52 +1,44 @@
-# INFOFinalProject
-INFO 498f Final Group Project
+# INFO 498f Final Project
 
-# Project Proposal
+**Contributers:** Nick Haener, Christopher Kites, Alexander Bonilla, Warren Cho
+
 
 ## Description
 
 ### What is the data?
-Data set from: http://www.cdc.gov/diabetes/atlas/countydata/County_ListofIndicators.html
-Stored in sub directory data
+All the data sets we worked with can be found at: http://www.cdc.gov/diabetes/atlas/countydata/County_ListofIndicators.html
+
 This data set is based on information from the CDC website on obesity rates by county in each state. This data set has obesity statistics from 2004 to 2012. 
 
-Other possible data sets in addition to obesity data:
-- Obesity related health care spending
-- Obese population demographics (age, gender, race, other characteristics)
-- Data on physical activity (geographically)
+The data sets we used are: 
+
+- Obesity Prevalance  
+- Leisure-time physical inactivity prevalance
 
 
-### Who is the data for?
-This data is for people who want to learn about obesity prevalence (prevalence by state and prevalence by sex by state). Also those people who want to see the relationship between obesity prevalence and diagnosed diabetes prevalence and leisure-time physical inactivity prevalence. 
+### Whhy do you care?
+This data teaches you about the obesity prevalence (prevalence by state) and visualizes the relationship between obesity prevalence and leisure-time devoted to physical activity. This information can be used for an array of purposes including but not limited to:
 
 - Health care industry (obesity impacts hospital infrastructure such as bed size, availability of lifts to help move patients, staff training to safely care for over weight patients, etc.)
 - legislators (they set funding levels for health care spending, research on obesity related illnesses)
 - other government officials (national, state, local) that set the policies to deal with the impacts of a increasingly obese population. 
 
 
-### What do they want to learn?
-The audience may want to compare obesity prevalence between sexes within a state or between two states. Three example questions may be:
-- What is the obesity prevalence of men in Washington state compared to obesity prevalence in women?
-- How do the regions of America (west, midwest, south, etc.) compare in terms of obesity prevalence?
-- How has obesity prevalence changed over the eight years represented in data?
-
 ## Technical Description
 
-### Format?
-Shiny app, allowing client to filter obesity data based on different factors such as seeing overall data for state, county level data, data for specific year, etc. 
+### What libraries were used?
+To create the visual representations we used `Shiny`, `plotly`, `choroplethr`, `choroplethrMaps`, and `shinyjs`. For the in depth data manipulation we implemented `dplyr`.
 
-### Reading in data?
-These datasets will be read in as static .csv files, likely with the `read.csv()` function and set to variable(s) to be manipulated and used to visualize.
+### What aspects of the data sets were used?
+We focused mainly on the percentages of people obese and the percentage of time during lesiure time spent inactive with respect to every state in the U.S. and every county within each state. Below is a breakdown of what the terms used mean:
 
-### Types of data-wrangling
-We'll likely be needing to use `select()`, `filter()`, and various join functions to view/alter data from multiple datasets for given years. We may need to compile all the datasets we're using into a single data frame.
+- County <- All counties within given state
+- Surveyed <- Number of people surveyed in a given state or county
+- Percent Obese <- a person is considered obese if they have a Body Mass Index (BMI) of over 30; for a given county, this is the direct percentage of people obese    from the number of people surveyed; for a given state, Percent Obese refers to the the state average of people who are obese.
+  
+### Body Mass Index Chart
+![BMI Chart](http://www.vertex42.com/ExcelTemplates/Images/body-mass-index-chart.gif)
 
-### What (new) libraries will be used?
-We will mainly be using `Shiny` and `plotly`. We may experiment with the use of other data visualization packages such as `googleVis` and `choroplethr`.
+ 
 
-### Questions answered with statistical analysis/machine learning?
-- Majority of our questions will require statistical analysis to answer. 
-### What major challenges do you anticipate?
-- One major challenge will be figuring out what visualization will provide the clearest picture of the problem with obesity. This will still need to provide enough detail to allow the client to see possible solutions/or areas to look into in more detail. 
-- The other major challenge will be figuring out what other data should be included with obesity statistics to give a better picture of the impact of obesity in other areas.
 

@@ -34,12 +34,12 @@ source("format_functions.R")
 
 #############################################################
 ## Reads in files to be worked on
-LL <- read.csv("data/Lat_long_by_county.csv")
-AB <- read.csv("data/StateName_abvr.csv")
-OB <- read.csv("data/OB_PREV_ALL_STATES.csv")
-OB_S <- read.csv("data/OB_PREV_by_sex_ALL_STATES.csv")
-AC <- read.csv("data/LTPIA_PREV_ALL_STATES.csv")
-AC_S <- read.csv("data/LTPIA_PREV_by_sex_ALL_STATES.csv")
+LL <- read.csv("data/original/Lat_long_by_county.csv")
+AB <- read.csv("data/original/StateName_abvr.csv")
+OB <- read.csv("data/original/OB_PREV_ALL_STATES.csv")
+OB_S <- read.csv("data/original/OB_PREV_by_sex_ALL_STATES.csv")
+AC <- read.csv("data/original/LTPIA_PREV_ALL_STATES.csv")
+AC_S <- read.csv("data/original/LTPIA_PREV_by_sex_ALL_STATES.csv")
 
 #############################################################
 #############################################################
@@ -99,3 +99,15 @@ OB <- add_location(OB, LL)
 OB_S <- add_location(OB_S, LL)
 AC <- add_location(AC, LL)
 AC_S <- add_location(AC_S, LL)
+
+#############################################################
+#############################################################
+## Section to: Write formated data sets
+#############################################################
+#############################################################
+
+write.csv(OB, file = "data/OB.csv", row.names = FALSE)
+write.csv(OB_S, file = "data/OB_S.csv", row.names = FALSE)
+write.csv(AC, file = "data/AC.csv", row.names = FALSE)
+write.csv(AC_S, file = "data/AC_S.csv", row.names = FALSE)
+
