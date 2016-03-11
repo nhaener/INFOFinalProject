@@ -33,7 +33,7 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                             sliderInput("Overview_OB_map_slider_year",
                                         2004, 2012, 1, sep = "",
                                         label = "Select year", 
-                                        animate = animationOptions(interval = 5000)),
+                                        animate = animationOptions(interval = 4000)),
                           selectInput("Overview_OB_map_select_state",
                                       choices = c("National", choices_state()),
                                       label = "Select focus (National or State)"),
