@@ -11,6 +11,7 @@
 library(shiny)
 library(plotly)
 library(dplyr)
+library(choroplethr)
 library(choroplethrMaps)
 library(shinyjs)
 
@@ -25,7 +26,7 @@ source("PAGE_Overview_data_mp.R")
 # Define UI
 shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
   useShinyjs(), # Set up toggle ability
-  navbarPage("US Obesity",
+  navbarPage("USA Obesity",
              tabPanel("Overview",
                       
                       sidebarLayout(
