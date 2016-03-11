@@ -19,6 +19,7 @@ library(shinyjs)
 # Load manipulated data
 #source("server_data_mp.R")
 source("PAGE_Overview_data_mp.R")
+source("trendline.R")
 
 # Define UI
 shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
@@ -81,10 +82,32 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                       )  
              ),
              tabPanel("Trends",
+                      titlePanel("Trends Projected into 2025"),
                       sidebarLayout(
-                        sidebarPanel( "sidebar panel"),
-                        mainPanel("main panel")
-                      )   
+                        sidebarPanel( "The interactive graphs to the right depict the rate of increase in obesity and inactivity by state.
+                                      Hover to see the projected percentages in 2025.",
+                                      br(), br(),
+                                      "In addition, toggle the button below to display exact percentages for each state by year.",
+                                      checkboxInput("trends_checkbox",
+                                                    label = "Display data"), br(),
+                                      "One of the questions we wanted to ask was if obesity rates correlated with inactivity rates.
+                                      According to the data we have gathered, there is actually little evidence to support this:", br(),
+                                      strong("Louisiana"), "is the state with the highest projected obesity (see right), but is one
+                                      of the few states that is projected to ", strong("decrease"), "rates of inactivity. The same situation
+                                      occurs with ", strong("Kentucky"), " (on data table).", br(), br(),
+                                      "Finally, the graphs show an interesting phenomenon:", br(), "Even though there are quite a few states
+                                      that are projected to ", strong("decrease"), " inactivity levels (see inactivity graph), ", strong("all"), " of 
+                                      the states are projected to ", strong("increase"), " obesity rates. This is yet another example of how the graphs show
+                                      no correlation between obesity and inactivity."
+                                      ),
+                        
+                        mainPanel(
+                          plotlyOutput("obesity_plot"), br(), br(),
+                          dataTableOutput("table1"), br(),
+                          plotlyOutput("inactivity_plot"), br(), br(),
+                          dataTableOutput("table2")
+                        )
+                      )
              ),
              tabPanel("Documentation",
                         mainPanel( 
@@ -155,7 +178,7 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
 # br	    <br>	    A line break (e.g. a blank line)
 # div	    <div>	    A division of text with a uniform style
 # span    <span>	  An in-line division of text with a uniform style
-# pre	    <pre>	    Text ‘as is’ in a fixed width font
+# pre	    <pre>	    Text s is in a fixed width font
 # code    <code>	  A formatted block of code
 # img	    <img>	    An image
 # strong	<strong>	Bold text

@@ -28,6 +28,7 @@ library(shinyjs)
 # Load manipulated data
 #source("server_data_mp.R")
 source("PAGE_Overview_data_mp.R")
+source("trendline.R")
 
 #############################################################
 # Read in data
@@ -36,7 +37,6 @@ OB_S <- read.csv("data/OB_S.csv")
 AC <- read.csv("data/AC.csv")
 AC_S <- read.csv("data/AC_S.csv")
 OB_AC_AVG <- read.csv("data/OBandAC_DF.csv")
-
 
 # Server
 shinyServer(function(input, output) {
@@ -160,7 +160,55 @@ shinyServer(function(input, output) {
   })
   
   #############################################################
-  # Output for Trends
+  # Output fot Trends
+  
+    #rendering obesity graph
+    output$obesity_plot <- renderPlotly(
+      plot_ly(obesity_2025,
+              x = net_change,
+              y = State,
+              text = paste(
+                '<b>Percent Increase by Year:</b>', net_change,
+                '<br><b>Percent Obese in 2005:</b>', percent_2005,
+                '<br><b>Percent Obese by 2025:</b>', percent_2025
+              ),
+              mode = "markers",
+              color = Change) %>%
+        layout(title = "Current Obesity Percentage Projected into 2025",
+               xaxis = list(title = "Percent Increase in Obesity"),
+               yaxis = list(title = "State"),
+               margin = list(l = 150))
+    )
+    #rendering inactivity graph
+    output$inactivity_plot <- renderPlotly(
+      plot_ly(inactivity_2025,
+              x = net_change,
+              y = State,
+              text = paste(
+                '<b>Percent Increase by Year:</b>', net_change,
+                '<br><b>Percent Inactive in 2005:</b>', percent_2005,
+                '<br><b>Percent Inactive by 2025:</b>', percent_2025
+              ),
+              mode = "markers",
+              color = Change) %>%
+        layout(title = "Current Inactivity Percentage Projected into 2025",
+               xaxis = list(title = "Percent Increase in Inactivity"),
+               yaxis = list(title = "State"),
+               margin = list(l = 150))
+      
+    )
+    #calling the tables if button is pressed
+    observeEvent(input$trends_checkbox, {
+      toggle("table1")
+      toggle("table2")
+    })
+    #rendering tables 1 and 2
+    output$table1 <- renderDataTable({
+      projected_obesity
+    })
+    output$table2 <- renderDataTable({
+      projected_inactivity
+    })
   
   #############################################################
   # Output for Resources
