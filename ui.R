@@ -68,7 +68,7 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                         sidebarPanel("Use the slider below to select which year to visualize data for",
                                      # Slider communicates with Server.R to wrangle data for the desired year
                                      sliderInput("year", label = h3("View data for the year:"), min = 2004, max = 2012, value = 2012,
-                                                 sep = "")
+                                                 sep = "", animate = animationOptions(interval = 2000, loop = TRUE))
                         ),
                         # contains the information paragraph and the two reactive choropleth maps of obesity and inactivity
                         mainPanel(
