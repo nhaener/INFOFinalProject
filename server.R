@@ -178,7 +178,7 @@ shinyServer(function(input, output) {
   #############################################################
   # Output for Trends
   
-    #rendering obesity graph
+    #rendering obesity graph, 'obesity_2025' comes from 'trendline.R'
     output$obesity_plot <- renderPlotly(
       plot_ly(obesity_2025,
               x = net_change,
@@ -195,7 +195,7 @@ shinyServer(function(input, output) {
                yaxis = list(title = "State"),
                margin = list(l = 150))
     )
-    #rendering inactivity graph
+    #rendering inactivity graph, 'inactivity_2025' comes from 'trendline.R'
     output$inactivity_plot <- renderPlotly(
       plot_ly(inactivity_2025,
               x = net_change,
@@ -218,7 +218,7 @@ shinyServer(function(input, output) {
       toggle("table1")
       toggle("table2")
     })
-    #rendering tables 1 and 2
+    #rendering tables 1 and 2, each of the tables are dataframes straight from 'trendline.R'
     output$table1 <- renderDataTable({
       projected_obesity
     })

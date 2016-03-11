@@ -43,7 +43,20 @@ calc_percent_increase <- function(data) {
                          return (df)
 }
 
+<<<<<<< 2b8d26ea80f2a2b4a714c718714b1221e6a6c5ba:scripts/trendline.R
 #function that generates df with values that go up to 2020 for each state
+=======
+
+#rate of obesity growth by state, uses function above
+state_obesity_percent_increase <- calc_percent_increase(obesity_rate)
+state_inactivity_percent_increase <- calc_percent_increase(inactivity_rate)
+
+#top rankers in obesity/inactivity trends
+states_growing_most_obese <- state_obesity_percent_increase %>% filter(percent_increase > 6)
+states_growing_most_inactive <- state_inactivity_percent_increase %>% filter(percent_increase > 2)
+
+#function that generates df with values that go up to 2025 for each state
+>>>>>>> Alex's final comments:trendline.R
 generate_2025_val <- function(data, data_with_percent_increase) {
                      df_2012 <- group_by(data, State) %>% 
                                 summarise(
