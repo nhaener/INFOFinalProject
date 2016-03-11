@@ -10,7 +10,6 @@
 #############################################################
 library(shiny)
 library(plotly)
-library(dplyr)
 library(choroplethr)
 library(choroplethrMaps)
 library(shinyjs)
@@ -21,8 +20,6 @@ library(shinyjs)
 #source("server_data_mp.R")
 source("PAGE_Overview_data_mp.R")
 
-
-
 # Define UI
 shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
   useShinyjs(), # Set up toggle ability
@@ -30,7 +27,6 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
              #############################################################
              ## UI for Overview page
              tabPanel("Overview",
-                      
                       sidebarLayout(
                         sidebarPanel( "View Settings:", width = 3,
                             sliderInput("Overview_OB_map_slider_year",
@@ -42,7 +38,6 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                                       label = "Select focus (National or State)"),
                           checkboxInput("Overview_OB_map_data_show_table",
                                         label = "Display data?")
-                          
                         ),
                         mainPanel(
                           plotOutput("Overview_OB_map"),
@@ -66,40 +61,30 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                             and activity data is from and describes what the values actually mean. ")
 
                         ))
-                      
               ),
              tabPanel("Obesity & Activity",
                       sidebarLayout(
-                        
                         sidebarPanel("Use the slider below to select which year to visualize data for",
-                                     
                                      sliderInput("year", label = h3("View data for the year:"), min = 2004, max = 2012, value = 2012,
                                                  sep = "")
-                                     
                         ),
-                        
                         mainPanel(
                           h4("The two maps below display the prevalence of obesity across American states for a given year
                              (upper map) and the percentage of leisure time that people of a state do not spend performing 
                              physical activity for the same year (lower map). The intensity of the colors of the maps are 
                              directly related to the percentage of that state's population that is considered obese or the 
                              average percentage of leisure time people of a state are spending inactive."),
-                          br(),
-                          br(),
+                          br(), br(),
                           plotlyOutput('obmap'),
                           plotlyOutput('acmap')
-                          )
+                        )
                       )  
-                      
              ),
              tabPanel("Trends",
                       sidebarLayout(
                         sidebarPanel( "sidebar panel"),
                         mainPanel("main panel")
                       )   
-             
-                      
-                      
              ),
              tabPanel("Documentation",
                         mainPanel( 
@@ -147,10 +132,8 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                               tags$li("Surveyed - Number of people surveyed in a given state or county"),
                               tags$li("Percent Obese - a person is considered obese if they have a Body Mass Index (BMI) of over 30; for a given county, this is the direct 
                               percentage of people obese from the number of people surveyed; for a given state, Percent Obese refers to the the state average of people who are obese.")
-                            )
-                          
-                          
-
+                            ), br(),
+                          tags$img(src = "http://www.vertex42.com/ExcelTemplates/Images/body-mass-index-chart.gif", width = "500px", height = "600px")
                         )
              )
     ))
