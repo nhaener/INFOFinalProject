@@ -25,8 +25,7 @@ library(choroplethrMaps)
 library(shinyjs)
 
 #############################################################
-# Load manipulated data
-#source("scripts/trendline.R")
+# Load files from scripts folder
 
 #############################################################
 # Read in data
@@ -54,8 +53,7 @@ shinyServer(function(input, output) {
   #############################################################
   # Output for Overview Page 
   
-  # 
-  
+  # Obesity data by county on a map 
   output$Overview_OB_map <- renderPlot({
     df <- OB %>% select(1:3, contains("number"), contains("percent"))
     colnames(df)[2] <- "region"
@@ -73,10 +71,14 @@ shinyServer(function(input, output) {
     }
   })
   
+  # Toggles showing data table associated with current view on map
   observeEvent(input$Overview_OB_map_data_show_table, {
     toggle("Overview_OB_map_data")
   })
   
+  # Table with data shown based on current view on map
+  # ie: when map is national data state level data is shown
+  #     when map is focused on one state, table is county level data for that state
   output$Overview_OB_map_data <- renderDataTable({
     if(input$Overview_OB_map_select_state != "National"){
       map_table <- OB %>% select(1, 3, contains(paste0(input$Overview_OB_map_slider_year))) %>%
@@ -95,6 +97,7 @@ shinyServer(function(input, output) {
       map_table_national
     }
   })
+  
   #############################################################
   # Output for Obesity & Activity
   

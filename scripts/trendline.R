@@ -4,13 +4,17 @@
 #setwd("..") #To be able to write to output in parent directory
 #source("data_format.R")
 
+#############################################################
+# Load Library
+library(dplyr)
+library(plotly)
 
+#############################################################
+# Read in data
 OB <- read.csv("output/OB.csv")
 AC <- read.csv("output/AC.csv")
 
-
-library(dplyr)
-library(plotly)
+############################################ Functions #########################################################
 
 #function that returns a dataframe with predicted values for 2013-2020
 calc_rate <- function(data) {
@@ -28,10 +32,6 @@ calc_rate <- function(data) {
              return (df)
 }
 
-#using 'predict' function to create obeisty and leisure activity df's with predicted values
-obesity_rate <- calc_rate(OB)
-inactivity_rate <- calc_rate(AC)
-
 #function to calculate percent increase
 calc_percent_increase <- function(data) {
                          df <- group_by(data, State) %>%
@@ -42,15 +42,6 @@ calc_percent_increase <- function(data) {
                                mutate(percent_increase = total_growth / num_counties)
                          return (df)
 }
-
-
-#rate of obesity growth by state, uses function above
-state_obesity_percent_increase <- calc_percent_increase(obesity_rate)
-state_inactivity_percent_increase <- calc_percent_increase(inactivity_rate)
-
-#top rankers in obesity/inactivity trends
-states_growing_most_obese <- state_obesity_percent_increase %>% filter(percent_increase > 6)
-states_growing_most_inactive <- state_inactivity_percent_increase %>% filter(percent_increase > 2)
 
 #function that generates df with values that go up to 2020 for each state
 generate_2025_val <- function(data, data_with_percent_increase) {
@@ -80,6 +71,20 @@ generate_2025_val <- function(data, data_with_percent_increase) {
                      return (df_final)
 }
 
+############################################ Data Manipulation #########################################################
+
+#using 'predict' function to create obeisty and leisure activity df's with predicted values
+obesity_rate <- calc_rate(OB)
+inactivity_rate <- calc_rate(AC)
+
+#rate of obesity growth by state, uses function above
+state_obesity_percent_increase <- calc_percent_increase(obesity_rate)
+state_inactivity_percent_increase <- calc_percent_increase(inactivity_rate)
+
+#top rankers in obesity/inactivity trends
+states_growing_most_obese <- state_obesity_percent_increase %>% filter(percent_increase > 6)
+states_growing_most_inactive <- state_inactivity_percent_increase %>% filter(percent_increase > 2)
+
 #generating df's with data to 2020
 obesity_2025 <- generate_2025_val(obesity_rate, state_obesity_percent_increase)
 inactivity_2025 <- generate_2025_val(inactivity_rate, state_inactivity_percent_increase)
@@ -91,38 +96,6 @@ inactivity_2025 <- inactivity_2025[inactivity_2025$State != "Puerto Rico", ]
 #rounding all values in df's
 obesity_2025[,-1] <- round(obesity_2025[,-1], 2)
 inactivity_2025[,-1] <- round(inactivity_2025[,-1], 2)
-
-#graphing obesity
-plot_ly(obesity_2025,
-        x = net_change,
-        y = State,
-        text = paste(
-               '<b>Percent Increase by Year:</b>', net_change,
-               '<br><b>Percent Obese in 2005:</b>', percent_2005,
-               '<br><b>Percent Obese by 2025:</b>', percent_2025
-               ),
-        mode = "markers",
-        color = Change) %>%
-        layout(title = "Current Obesity Percentage Projected into 2025",
-               xaxis = list(title = "Percent Increase in Obesity"),
-               yaxis = list(title = "State"),
-               margin = list(l = 150))
-
-#graphing inactivity
-plot_ly(inactivity_2025,
-        x = net_change,
-        y = State,
-        text = paste(
-          '<b>Percent Increase by Year:</b>', net_change,
-          '<br><b>Percent Inactive in 2005:</b>', percent_2005,
-          '<br><b>Percent Inactive by 2025:</b>', percent_2025
-        ),
-        mode = "markers",
-        color = Change) %>%
-  layout(title = "Current Inactivity Percentage Projected into 2025",
-         xaxis = list(title = "Percent Increase in Inactivity"),
-         yaxis = list(title = "State"),
-         margin = list(l = 150))
 
 #creating df's to display under graphs
 projected_obesity <- obesity_2025 %>% 
@@ -136,6 +109,9 @@ newcol <- c("State", "Yearly Increase/Decrease", "2017", "2019", "2021", "2023",
 colnames(projected_obesity) <- newcol
 colnames(projected_inactivity) <- newcol
 
+
+############################################ Write data to csv #########################################################
+
 #writing final df's to csv
 write.csv(projected_obesity, file = "output/projected_obesity.csv", row.names = FALSE)
 write.csv(projected_inactivity, file = "output/projected_inactivity.csv", row.names = FALSE)
@@ -143,3 +119,45 @@ write.csv(projected_inactivity, file = "output/projected_inactivity.csv", row.na
 write.csv(obesity_2025, file = "output/obesity_2025.csv", row.names = FALSE)
 write.csv(inactivity_2025, file = "output/inactivity_2025.csv", row.names = FALSE)
 
+
+
+
+#############################################################
+#############################################################
+##
+## Code to plot data created with this script
+##
+#############################################################
+#############################################################
+
+# #graphing obesity
+# plot_ly(obesity_2025,
+#         x = net_change,
+#         y = State,
+#         text = paste(
+#           '<b>Percent Increase by Year:</b>', net_change,
+#           '<br><b>Percent Obese in 2005:</b>', percent_2005,
+#           '<br><b>Percent Obese by 2025:</b>', percent_2025
+#         ),
+#         mode = "markers",
+#         color = Change) %>%
+#   layout(title = "Current Obesity Percentage Projected into 2025",
+#          xaxis = list(title = "Percent Increase in Obesity"),
+#          yaxis = list(title = "State"),
+#          margin = list(l = 150))
+# 
+# #graphing inactivity
+# plot_ly(inactivity_2025,
+#         x = net_change,
+#         y = State,
+#         text = paste(
+#           '<b>Percent Increase by Year:</b>', net_change,
+#           '<br><b>Percent Inactive in 2005:</b>', percent_2005,
+#           '<br><b>Percent Inactive by 2025:</b>', percent_2025
+#         ),
+#         mode = "markers",
+#         color = Change) %>%
+#   layout(title = "Current Inactivity Percentage Projected into 2025",
+#          xaxis = list(title = "Percent Increase in Inactivity"),
+#          yaxis = list(title = "State"),
+#          margin = list(l = 150))

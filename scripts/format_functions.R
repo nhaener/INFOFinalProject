@@ -5,8 +5,9 @@
 ## Functions for: correct column names of all files
 #############################################################
 #############################################################
-# Format data function
 
+# Format data function
+# Starts formmating process by getting the correct col names for the data frames
 format_data <- function(df, years, start, end) {
   df_repeated_col <- get_last(df, 1, start, end)
   df_col_names <- c("State", "FIPS_Codes", "County", years(df_repeated_col, years))
@@ -15,6 +16,7 @@ format_data <- function(df, years, start, end) {
 }
 
 # Functions to add year to col names, return vector of strings
+# vector is all coumn names
 years <- function(col_values, years) {
   values <- c()
   for (int in years) {
@@ -23,6 +25,7 @@ years <- function(col_values, years) {
   return(values)
 }
 
+# Adds the given year to the end of each column name
 cn_year <- function(col_values, year) {
   values <- c()
   for (string in col_values) {
@@ -31,11 +34,13 @@ cn_year <- function(col_values, year) {
   return(values)
 }
 
+# Adds the given year to the given column name
+# With format givenname_givenyear
 value_year <- function(value, year) {
   return(paste(value, year, sep = "_"))
 }
 
-# function to get last value
+# function to get each individual column name from the first row
 get_last <- function(df, row, start, end) {
   df <- df[row,start:end]
   values <- c()
@@ -45,7 +50,7 @@ get_last <- function(df, row, start, end) {
   return(values)
 }
 
-# Functions to update data sets
+# Functions to correct column names and remove row one
 fix_df <- function(df, new_colnames) {
   colnames(df) <- new_colnames
   return(df[-1,])

@@ -41,6 +41,9 @@ OB_S <- read.csv("data/OB_PREV_by_sex_ALL_STATES.csv")
 AC <- read.csv("data/LTPIA_PREV_ALL_STATES.csv")
 AC_S <- read.csv("data/LTPIA_PREV_by_sex_ALL_STATES.csv")
 
+
+############################################ Data Manipulation #########################################################
+
 #############################################################
 #############################################################
 ## Section to work on LL and AB data
@@ -99,6 +102,9 @@ OB <- add_location(OB, LL)
 OB_S <- add_location(OB_S, LL)
 AC <- add_location(AC, LL)
 AC_S <- add_location(AC_S, LL)
+
+
+############################################ Write data to csv #########################################################
 
 #############################################################
 #############################################################
