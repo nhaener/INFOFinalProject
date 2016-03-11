@@ -53,13 +53,25 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
               ),
              tabPanel("Obesity & Activity",
                       sidebarLayout(
-                        sidebarPanel("Obesity Prevalence and Leisure Time Activity in America",
-                                     sliderInput("year", label = h3("Select year to view data for:"), min = 2004, max = 2012, value = 2012,
-                                                 sep = "")),
+                        
+                        sidebarPanel("Use the slider below to select which year to visualize data for",
+                                     
+                                     sliderInput("year", label = h3("View data for the year:"), min = 2004, max = 2012, value = 2012,
+                                                 sep = "")
+                                     
+                        ),
+                        
                         mainPanel(
+                          h4("The two maps below display the prevalence of obesity across American states for a given year
+                             (upper map) and the percentage of leisure time that people of a state spend performing physical
+                             activity for the same year (lower map). The intensity of the colors of the maps are directly
+                             related to the percentage of that state's population that is considered obese or the average
+                             percentage of leisure time people of a state are active."),
+                          br(),
+                          br(),
                           plotlyOutput('obmap'),
                           plotlyOutput('acmap')
-                        )
+                          )
                       )  
                       
                       

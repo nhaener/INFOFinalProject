@@ -98,7 +98,7 @@ shinyServer(function(input, output) {
     to_obmap <- select(OBandAC_data, State, contains(paste0('OB_percent_', as.character(input$year)))) %>% 
       filter(State!="Alaska", State!="Puerto Rico")
     colnames(to_obmap) = c('State', 'percent')
-    to_obmap$hover = with(to_obmap, paste0(to_obmap$State, ": ", to_obmap$percent, "%"))
+    to_obmap$hover = with(to_obmap, paste0(to_obmap$State, ": ", round(to_obmap$percent, digits = 3), "%"))
     to_obmap <- left_join(to_obmap, state_codes, by="State")
   })
   
