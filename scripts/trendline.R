@@ -1,10 +1,12 @@
 #This file creates an output of 2 plotly graphs and 2 output tables that show projections of obesity and inactivity
 #------------------------------------------------------------------------------------------------------------------
 #setwd("C:/Users/Alexander/Documents/School/College/info498/INFOFinalProject/output/")
+#setwd("..") #To be able to write to output in parent directory
 #source("data_format.R")
 
-OB <- read.csv("data/OB.csv")
-AC <- read.csv("data/AC.csv")
+
+OB <- read.csv("output/OB.csv")
+AC <- read.csv("output/AC.csv")
 
 
 library(dplyr)
@@ -135,5 +137,9 @@ colnames(projected_obesity) <- newcol
 colnames(projected_inactivity) <- newcol
 
 #writing final df's to csv
-write.csv(projected_obesity, file = "projected_obesity.csv", row.names = FALSE)
-write.csv(projected_inactivity, file = "projected_inactivity.csv", row.names = FALSE)
+write.csv(projected_obesity, file = "output/projected_obesity.csv", row.names = FALSE)
+write.csv(projected_inactivity, file = "output/projected_inactivity.csv", row.names = FALSE)
+
+write.csv(obesity_2025, file = "output/obesity_2025.csv", row.names = FALSE)
+write.csv(inactivity_2025, file = "output/inactivity_2025.csv", row.names = FALSE)
+

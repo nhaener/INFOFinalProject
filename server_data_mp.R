@@ -17,10 +17,15 @@
 ########################## DATA Manipulation ######################################
 ###################################################################################
 ## Set working directory
-setwd("/Users/Nick/info498f/INFOFinalProject")
+#setwd("/Users/Nick/info498f/INFOFinalProject")
+#setwd("..") #to be able to write to output in parent directory and read from output
 
-## Source formatted data
-source("data_format.R")
+#############################################################
+# Read in data
+OB <- read.csv("output/OB.csv")
+OB_S <- read.csv("output/OB_S.csv")
+AC <- read.csv("output/AC.csv")
+AC_S <- read.csv("output/AC_S.csv")
 
 ## Library 
 library(dplyr)
@@ -30,9 +35,9 @@ finished_df <- create_final_df(OB, AC)
 finished_df_S <- create_final_df_S(OB_S, AC_S)
 
 #Write final data frames to CSV
-write.csv(finished_df, file = "data/OBandAC_DF.csv", row.names = FALSE)
-write.csv(finished_df_S, file = "data/OB_SandAC_S_DF.csv", row.names = FALSE)
-write.csv(sumTbl, file = "data/OBvsAC_sumTbl.csv", row.names = FALSE)
+write.csv(finished_df, file = "output/OBandAC_DF.csv", row.names = FALSE)
+write.csv(finished_df_S, file = "output/OB_SandAC_S_DF.csv", row.names = FALSE)
+write.csv(sumTbl, file = "output/OBvsAC_sumTbl.csv", row.names = FALSE)
 
 #Summary Table for percentage change in obesity and activity level by year
 sumTbl <- write_sum_tbl()

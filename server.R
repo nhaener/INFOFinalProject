@@ -26,17 +26,21 @@ library(shinyjs)
 
 #############################################################
 # Load manipulated data
-#source("server_data_mp.R")
-source("PAGE_Overview_data_mp.R")
-source("trendline.R")
+#source("scripts/trendline.R")
 
 #############################################################
 # Read in data
-OB <- read.csv("data/OB.csv")
-OB_S <- read.csv("data/OB_S.csv")
-AC <- read.csv("data/AC.csv")
-AC_S <- read.csv("data/AC_S.csv")
-OB_AC_AVG <- read.csv("data/OBandAC_DF.csv")
+OB <- read.csv("output/OB.csv")
+OB_S <- read.csv("output/OB_S.csv")
+AC <- read.csv("output/AC.csv")
+AC_S <- read.csv("output/AC_S.csv")
+OB_AC_AVG <- read.csv("output/OBandAC_DF.csv")
+
+projected_obesity <- read.csv("output/projected_obesity.csv")
+projected_inactivity <- read.csv("output/projected_inactivity.csv")
+obesity_2025 <- read.csv("output/obesity_2025.csv")
+inactivity_2025 <- read.csv("output/inactivity_2025.csv")
+
 
 # Server
 shinyServer(function(input, output) {
@@ -77,7 +81,7 @@ shinyServer(function(input, output) {
       
     } else {
       map_table_national <- OB_AC_AVG %>% select(1, contains("OB")) %>% 
-        select(1, contains(paste0(input$Overview_OB_map_select_year)))
+        select(1, contains(paste0(input$Overview_OB_map_slider_year)))
       col_name <- paste0("number_", input$Overview_OB_map_slider_year)
       num_counties_and_surveyed <- OB %>% group_by(State) %>% summarise(n())
       map_table_national <- map_table_national %>% left_join(num_counties_and_surveyed, by = "State")
@@ -89,9 +93,9 @@ shinyServer(function(input, output) {
   # Output for Obesity & Activity
   
   # read in .csv files to be visualized
-  OBandAC_data <- read.csv("data/OBandAC_DF.csv")
+  OBandAC_data <- read.csv("output/OBandAC_DF.csv")
   # read in state name abbrevations/codes to be accepted into 'location' argument of the plotly choropleth maps
-  state_codes <- read.csv("data/original/StateName_abvr.csv")
+  state_codes <- read.csv("data/StateName_abvr.csv")
   colnames(state_codes) <- c('State', 'code')
   
   # create reactive dataframe for obesity prevalence of states for the year input by user, leaving out
@@ -214,10 +218,5 @@ shinyServer(function(input, output) {
     })
   
   #############################################################
-  # Output for Resources
-  
-  #############################################################
-  # Output for Other
-  
-  
+  # Output for Documentation
 })

@@ -14,18 +14,23 @@
 library(dplyr)
 
 #############################################################
-# Read in data
-OB <- read.csv("data/OB.csv")
-OB_S <- read.csv("data/OB_S.csv")
-AC <- read.csv("data/AC.csv")
-AC_S <- read.csv("data/AC_S.csv")
+# Set wd
+#setwd("..")
 
 #############################################################
-# Mp for Overview page
+# Read in data
+OB <- read.csv("output/OB.csv")
+OB_S <- read.csv("output/OB_S.csv")
+AC <- read.csv("output/AC.csv")
+AC_S <- read.csv("output/AC_S.csv")
 
+
+
+#############################################################
+# Functions
 
 # wellPannel choices
 choices_state <- function() {
-  df <- OB %>% filter(State != "Puerto Rico")
-  names <- c(as.character(df[,'State']))
+  df_o <- OB %>% filter(State != "Puerto Rico")
+  names <- c(as.character(df_o[,'State']))
 }

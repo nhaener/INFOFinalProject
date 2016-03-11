@@ -8,18 +8,19 @@
 ##
 #############################################################
 #############################################################
+
+#############################################################
+# Load Library
 library(shiny)
 library(plotly)
 library(choroplethr)
 library(choroplethrMaps)
 library(shinyjs)
 
-
 #############################################################
-# Load manipulated data
-#source("server_data_mp.R")
-source("PAGE_Overview_data_mp.R")
-source("trendline.R")
+# Sources
+source("scripts/server_and_ui_functions.R")
+
 
 # Define UI
 shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
@@ -38,7 +39,7 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
                                       choices = c("National", choices_state()),
                                       label = "Select focus (National or State)"),
                           checkboxInput("Overview_OB_map_data_show_table",
-                                        label = "Display data?")
+                                        label = "Display data")
                         ),
                         mainPanel(
                           plotOutput("Overview_OB_map"),
@@ -163,7 +164,6 @@ shinyUI(fluidPage(theme = "bootstrap.css", #sets theme for web app
              )
     ))
 ))
-
 
 #################################################SHINY HTML DOCUMENTATION ######################################################
 
