@@ -78,7 +78,6 @@ create_final_df <- function(df1, df2){
   OB_df <- create_summarised_df(df1)
   names(OB_df) <- c("State", "OB_percent_2004", "OB_percent_2005", "OB_percent_2006", "OB_percent_2007", 
                     "OB_percent_2008", "OB_percent_2009", "OB_percent_2010", "OB_percent_2011", "OB_percent_2012")
-  #colnames(OB_df[,-1]) <- colnames(OB_df[,-1], prefix = "OB_")
   
   #Activity level
   AC_df <- create_summarised_df(df2)
